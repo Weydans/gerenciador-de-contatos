@@ -1,0 +1,6 @@
+**.swp
+.data
+.env
+.phpunit.cache
+/vendor/
+/coverage/
