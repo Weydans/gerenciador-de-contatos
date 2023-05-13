@@ -1,6 +1,7 @@
 <?php
 
-use App\Domain\Repository\PersonRepository;
+use App\Domain\Service\PersonDeleteService;
+use App\Domain\Repository\PersonDoctrineRepository;
 use App\Domain\Exception\PersonNotFoundException;
 
 require_once( 'vendor/autoload.php' );
@@ -11,8 +12,9 @@ if ( $argc != 2 ) {
 }
 
 try {
-	$repository = new PersonRepository();
-	$repository->delete( $argv[1] );
+	PersonDeleteService::execute( $argv[1], new PersonDoctrineRepository() );
+
+	echo "Person deleted with success" . PHP_EOL;
 
 } catch ( PersonNotFoundException $e ) {
 	echo $e->getMessage() . PHP_EOL;

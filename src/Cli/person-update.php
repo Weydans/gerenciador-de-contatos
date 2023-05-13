@@ -1,6 +1,7 @@
 <?php
 
-use App\Domain\Repository\PersonRepository;
+use App\Domain\Service\PersonUpdateService;
+use App\Domain\Repository\PersonDoctrineRepository;
 use App\Domain\Exception\PersonNotFoundException;
 
 require_once( 'vendor/autoload.php' );
@@ -11,14 +12,15 @@ if ( $argc != 4 ) {
 }
 
 try {
-	$repository = new PersonRepository();
+	$personDto = (object) [
+		'id'   => $argv[1], 
+		'name' => $argv[2], 
+		'cpf'  => $argv[3],
+	]; 
 
-	$person = $repository->find( $argv[1] );
+	PersonUpdateService::execute( $personDto, new PersonDoctrineRepository() );
 
-	$person->name = $argv[ 2 ];
-	$person->cpf = $argv[ 3 ];
-	
-	$repository->save();
+	echo "Person updated with success" . PHP_EOL;
 
 } catch ( PersonNotFoundException $e ) {
 	echo $e->getMessage() . PHP_EOL;
