@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Controller;
+namespace App\Http\Controller;
 
 use Lib\Controller;
-use App\Model\Contact;
+use App\Model\Person;
 
-class ContactController extends Controller
+class PersonController extends Controller
 {
 	public function read() 
 	{
