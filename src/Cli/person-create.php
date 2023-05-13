@@ -1,7 +1,7 @@
 <?php
 
-use App\Domain\Model\Person;
-use App\Domain\Repository\PersonRepository;
+use App\Domain\Service\PersonCreateService;
+use App\Domain\Repository\PersonDoctrineRepository;
 
 require_once( 'vendor/autoload.php' );
 
@@ -10,8 +10,19 @@ if ( $argc != 3 ) {
 	exit();
 }
 
-$person = new Person( $argv[1], $argv[2] );
+try {
+	$personDto = (object) [
+		'name' => $argv[1], 
+		'cpf'  => $argv[2],
+	]; 
 
-$repository = new PersonRepository();
-$repository->create( $person );
+	PersonCreateService::execute( $personDto, new PersonDoctrineRepository() );
+
+	echo "Person created with success" . PHP_EOL;
+
+} catch ( \Exception $e ) {
+	$message = $_ENV['APP_DEBUG'] ? $e->getMessage() : 'Something went wrong';
+
+	echo $message . PHP_EOL;
+} 
 

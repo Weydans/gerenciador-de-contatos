@@ -4,7 +4,7 @@ namespace App\Domain\Exception;
 
 use \Exception;
 
-class PersonNotFoundException extends Exception
+class RegisterNotFoundException extends Exception
 {
 
 }
