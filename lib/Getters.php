@@ -6,11 +6,11 @@ trait Getters
 {
 	public function __get( string $prop )
 	{
-		if ( !property_exists( $this, $prop ) ) {	
+		$method = 'get' . ucfirst( $prop );
+
+		if ( !property_exists( $this, $prop ) && !method_exists( $this, $method ) ) {	
 			return null;
 		}
-
-		$method = 'get' . ucfirst( $prop );
 
 		if ( method_exists( $this, $method ) ) {
 			return call_user_func( [ $this, $method ] );
