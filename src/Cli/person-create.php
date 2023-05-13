@@ -1,10 +1,17 @@
 <?php
 
+use App\Domain\Model\Person;
+use App\Domain\Repository\PersonRepository;
+
 require_once( 'vendor/autoload.php' );
 
-use App\Domain\Model\Factory\EntityManagerFactory;
+if ( $argc != 3 ) {
+	echo "Usage: {$argv[0]} <name> <cpf>" . PHP_EOL;
+	exit();
+}
 
-$factory = new EntityManagerFactory();
+$person = new Person( $argv[1], $argv[2] );
 
-var_dump( $factory->create() );
+$repository = new PersonRepository();
+$repository->create( $person );
 

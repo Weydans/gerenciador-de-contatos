@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Model\Factory;
+namespace App\Infrastructure\Factory;
 
 use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\EntityManager;
@@ -11,7 +11,7 @@ class EntityManagerFactory
 	public function create() : EntityManager
 	{
 		$config = ORMSetup::createAttributeMetadataConfiguration(
-			paths: array(__DIR__ . "/../../../"),
+			paths: array(__DIR__ . "/../../"),
 			isDevMode: true,
 		);
 
