@@ -1,7 +1,7 @@
 <?php
 
-use App\Controller\PersonController;
-use App\Controller\ContactController;
+use App\Http\Controller\PersonController;
+use App\Http\Controller\ContactController;
 
 $route = new Lib\Route( new Lib\Request() );
 
