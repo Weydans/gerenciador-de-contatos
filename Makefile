@@ -18,7 +18,7 @@ status:
 install:
 	cp .env.example .env
 	mkdir .data
-	mkdir src/Infrastructure/Db/Migrations
+	docker-compose up -d --build
 
 uninstall:
 	cd .. && rm -rf gerenciador-de-contatos
