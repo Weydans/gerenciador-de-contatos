@@ -8,7 +8,10 @@ use Lib\Issets;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[Entity]
 class Person
@@ -24,12 +27,31 @@ class Person
 	#[Column]
 	private string $cpf;
 
+	#[OneToMany(
+		targetEntity: Contact::class, 
+		mappedBy: 'person', 
+		cascade: ['persist', 'remove']
+	)]
+	private Collection $contacts;
+
 	use Getters, Setters, Issets;
 
 	public function __construct( string $name, string $cpf )
 	{
 		$this->setName( $name );
 		$this->setCpf( $cpf );
+
+		$this->contacts = new ArrayCollection();
+	}
+
+	public function addContact( Contact $contact )
+	{
+		$this->contacts->add( $contact );
+	}
+
+	public function removeContact( Contact $contact )
+	{
+		$this->contacts->removeElement( $contact );
 	}
 
 	public function setName( string $name )

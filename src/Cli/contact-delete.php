@@ -1,8 +1,8 @@
 <?php
 
-use App\Domain\Service\PersonDeleteService;
-use App\Domain\Repository\PersonDoctrineRepository;
+use App\Domain\Service\ContactDeleteService;
 use App\Domain\Exception\RegisterNotFoundException;
+use App\Domain\Repository\ContactDoctrineRepository;
 
 require_once( 'vendor/autoload.php' );
 
@@ -12,9 +12,9 @@ if ( $argc != 2 ) {
 }
 
 try {
-	PersonDeleteService::execute( $argv[1], new PersonDoctrineRepository() );
+	ContactDeleteService::execute( $argv[1], new ContactDoctrineRepository() );
 
-	echo "Person deleted with success" . PHP_EOL;
+	echo "Contact deleted with success" . PHP_EOL;
 
 } catch ( RegisterNotFoundException $e ) {
 	echo $e->getMessage() . PHP_EOL;

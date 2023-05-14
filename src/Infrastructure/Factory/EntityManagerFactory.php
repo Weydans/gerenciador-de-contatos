@@ -11,7 +11,7 @@ class EntityManagerFactory
 	public function create() : EntityManager
 	{
 		$config = ORMSetup::createAttributeMetadataConfiguration(
-			paths: array(__DIR__ . "/../../"),
+			paths: array(__DIR__ . "/../../Domain/Model/"),
 			isDevMode: true,
 		);
 

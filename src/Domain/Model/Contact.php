@@ -1,28 +1,44 @@
 <?php
 
-namespace App\Model;
+namespace App\Domain\Model;
 
+use Lib\Issets;
 use Lib\Getters;
 use Lib\Setters;
-use Lib\Issets;
+use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\GeneratedValue;
 
-use App\Model\Person;
-
+#[Entity]
 class Contact 
 {
-	private $id;
-	private $type;
-	private $description;
-	private $person;
+	#[Id]
+	#[GeneratedValue]
+	#[Column]
+	private int $id;
+	
+	#[Column]
+	private bool $type;
+	
+	#[Column]
+	private string $description;
+	
+	#[ManyToOne(
+		targetEntity: Person::class, 
+		inversedBy: 'contacts',
+		cascade: [ 'merge' ]
+	)]
+	private Person $person;
 
 	use Getters, Setters, Issets;
 
-	public function __construct( $id, bool $type, string $description, Person $person )
+	public function __construct( bool $type, string $description, Person $person )
 	{
-		$this->id          = $id;
-		$this->type        = $type;
-		$this->description = $description;
-		$this->person      = $person;
+		$this->setType( $type );
+		$this->setDescription( $description );
+		$this->setPerson( $person );
 	}
 
 	public function setType( bool $type )
@@ -32,6 +48,10 @@ class Contact
 
 	public function setDescription( string $description )
 	{
+		if ( mb_strlen( $description) < 3 || mb_strlen( $description) > 191 ) {
+			throw new \Exception( 'Description must be between 3 ans 191 charactes' );
+		}
+
 		$this->description = $description;
 	}
 

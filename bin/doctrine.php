@@ -1,8 +1,8 @@
 <?php
 
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
-use Doctrine\ORM\Tools\Console\EntityManagerProvider\SingleManagerProvider;
 use App\Infrastructure\Factory\EntityManagerFactory;
+use Doctrine\ORM\Tools\Console\EntityManagerProvider\SingleManagerProvider;
 
 require_once( __DIR__ . '/../vendor/autoload.php' );
 
@@ -13,3 +13,4 @@ $entityManager = $factory->create();
 ConsoleRunner::run(
     new SingleManagerProvider($entityManager)
 );
+

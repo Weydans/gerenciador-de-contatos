@@ -7,7 +7,7 @@ use App\Domain\Repository\RepositoryInterface;
 
 abstract class PersonCreateService
 {
-	public static function execute( stdClass $personDto, RepositoryInterface $repository ) : Person 
+	public static function execute( \stdClass $personDto, RepositoryInterface $repository ) : Person 
 	{
 		$person = new Person( $personDto->name, $personDto->cpf );
 

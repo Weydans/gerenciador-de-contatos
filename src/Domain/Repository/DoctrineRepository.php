@@ -13,8 +13,7 @@ abstract class DoctrineRepository implements RepositoryInterface
 
 	public function __construct()
 	{
-		$factory = new EntityManagerFactory();
-		$this->manager = $factory->create();
+		$this->manager    = ( new EntityManagerFactory() )->create();
 		$this->repository = $this->manager->getRepository( $this->entityClass );
 	}
 
@@ -37,6 +36,15 @@ abstract class DoctrineRepository implements RepositoryInterface
 	public function create( object $entity ) : ?object
 	{
 		$this->manager->persist( $entity );
+
+		$this->save();
+		
+		return $entity;
+	}
+
+	public function update( object $entity )
+	{
+		$this->manager->merge( $entity );
 
 		$this->save();
 		
