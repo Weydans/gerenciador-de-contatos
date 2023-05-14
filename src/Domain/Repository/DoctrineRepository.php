@@ -19,7 +19,6 @@ abstract class DoctrineRepository implements RepositoryInterface
 
 	public function searchByField( string $field, $value ) : array
 	{
-		#$result = $this->repository->findBy( [ $field => $value ] );
 		$result = ( $this->manager->createQueryBuilder() )
 			->select( 'e' )
 			->from( $this->entityClass, 'e' )
