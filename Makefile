@@ -1,4 +1,4 @@
-run: down install
+run: down 
 	docker-compose up -d --build
 	docker-compose exec app composer install
 	docker-compose exec app php vendor/bin/doctrine-migrations migrations:migrate --no-interaction
@@ -16,8 +16,9 @@ status:
 	docker-compose ps -a
 
 install:
-	ls .env || cp .env.example .env
-	ls .data || mkdir .data
+	cp .env.example .env
+	mkdir .data
+	mkdir src/Infrastructure/Db/Migrations
 
 uninstall:
 	cd .. && rm -rf gerenciador-de-contatos

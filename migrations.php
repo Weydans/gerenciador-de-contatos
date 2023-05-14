@@ -10,7 +10,7 @@ return [
     ],
 
     'migrations_paths' => [
-       	"App\\Infrastructure\\Db\\Migrations" => "./src/Infrastructure/Db/Migrations"
+       	"App\\Infrastructure\\Db\\Migrations" => __DIR__ . "/src/Infrastructure/Db/Migrations/"
     ],
 
     'all_or_nothing' => true,
