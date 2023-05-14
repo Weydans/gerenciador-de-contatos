@@ -3,7 +3,7 @@
 namespace App\Domain\Repository;
 
 use App\Domain\Exception\RegisterNotFoundException;
-use App\Infrastructure\Factory\EntityManagerFactory;
+use App\Infrastructure\Db\Factory\EntityManagerFactory;
 
 abstract class DoctrineRepository implements RepositoryInterface
 {
@@ -15,6 +15,11 @@ abstract class DoctrineRepository implements RepositoryInterface
 	{
 		$this->manager    = ( new EntityManagerFactory() )->create();
 		$this->repository = $this->manager->getRepository( $this->entityClass );
+	}
+
+	public function searchByField( string $field, $value )
+	{
+		
 	}
 
 	public function all() : ?array

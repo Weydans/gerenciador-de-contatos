@@ -1,6 +1,8 @@
 run: down install
 	docker-compose up -d --build
 	docker-compose exec app composer install
+	docker-compose exec app php vendor/bin/doctrine-migrations migrations:migrate --no-interaction
+	docker-compose exec app php bin/doctrine.php orm:info
 	make status
 
 test:
