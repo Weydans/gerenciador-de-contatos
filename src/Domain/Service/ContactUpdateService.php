@@ -24,7 +24,9 @@ abstract class ContactUpdateService
 		$contact->type        = $contactDto->type;
 		$contact->description = $contactDto->description;
 		
-		return $contactRepository->update( $contact );
+		$contactRepository->update( $contact );
+
+		return $contact;
 	}
 }
 

@@ -5,6 +5,8 @@ namespace App\Domain\Model;
 use Lib\Issets;
 use Lib\Getters;
 use Lib\Setters;
+use Lib\Serializeable;
+use Lib\SerializeableInterface;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Column;
@@ -12,7 +14,7 @@ use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\GeneratedValue;
 
 #[Entity]
-class Contact 
+class Contact implements SerializeableInterface 
 {
 	#[Id]
 	#[GeneratedValue]
@@ -32,7 +34,9 @@ class Contact
 	)]
 	private Person $person;
 
-	use Getters, Setters, Issets;
+	private $serializeable = [ 'id', 'type', 'description' ];
+
+	use Getters, Setters, Issets, Serializeable;
 
 	public function __construct( bool $type, string $description, Person $person )
 	{

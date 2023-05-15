@@ -11,6 +11,8 @@ class Response
 	private $message;
 	private $data;
 
+	use Issets;
+
 	public function __construct()
 	{
 		$this->message = '';

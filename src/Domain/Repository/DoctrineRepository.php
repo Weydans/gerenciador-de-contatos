@@ -19,7 +19,6 @@ abstract class DoctrineRepository implements RepositoryInterface
 
 	public function searchByField( string $field, $value ) : array
 	{
-		#$result = $this->repository->findBy( [ $field => $value ] );
 		$result = ( $this->manager->createQueryBuilder() )
 			->select( 'e' )
 			->from( $this->entityClass, 'e' )
@@ -54,25 +53,19 @@ abstract class DoctrineRepository implements RepositoryInterface
 	{
 		$this->manager->persist( $entity );
 
-		$this->save();
-		
-		return $entity;
+		return $this->save();
 	}
 
-	public function update( object $entity )
+	public function update( object $entity ) : ?object
 	{
 		$this->manager->merge( $entity );
 
-		$this->save();
-		
-		return $entity;
+		return $this->save();
 	}
 
-	public function save() : bool
+	public function save()
 	{
-		$this->manager->flush();
-
-		return true;
+		return $this->manager->flush();
 	}
 	
 	public function delete( int $id ) : bool

@@ -30,14 +30,14 @@ class Route
 
 	public function put( string $route, string $controller, string $method ) : void
 	{
-		if ( $this->request->server->request_method == 'POST' )	{
+		if ( $this->request->server->request_method == 'PUT' )	{
 			$this->processRoute($route, $controller, $method);
 		}
 	}
 
 	public function delete(	string $route, string $controller, string $method) : void
 	{
-		if ( $this->request->server->request_method == 'POST' ) {
+		if ( $this->request->server->request_method == 'DELETE' ) {
 			$this->processRoute($route, $controller, $method);
 		}
 	}

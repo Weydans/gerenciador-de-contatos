@@ -7,7 +7,7 @@ use App\Domain\Repository\RepositoryInterface;
 
 abstract class PersonUpdateService
 {
-	public static function execute( \stdClass $personDto, RepositoryInterface $repository ) : Person 
+	public static function execute( \stdClass $personDto, RepositoryInterface $repository ) : ?Person 
 	{
 		$person = $repository->find( $personDto->id );
 

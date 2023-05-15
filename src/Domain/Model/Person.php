@@ -5,6 +5,8 @@ namespace App\Domain\Model;
 use Lib\Getters;
 use Lib\Setters;
 use Lib\Issets;
+use Lib\Serializeable;
+use Lib\SerializeableInterface;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Column;
@@ -14,7 +16,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
 #[Entity]
-class Person
+class Person implements SerializeableInterface
 {
 	#[Id]
 	#[GeneratedValue]
@@ -34,7 +36,9 @@ class Person
 	)]
 	private Collection $contacts;
 
-	use Getters, Setters, Issets;
+	private $serializeable = [ 'id', 'name', 'cpf', 'contacts' ];
+
+	use Getters, Setters, Issets, Serializeable;
 
 	public function __construct( string $name, string $cpf )
 	{
@@ -42,6 +46,10 @@ class Person
 		$this->setCpf( $cpf );
 
 		$this->contacts = new ArrayCollection();
+	}
+	
+	public function getContacts() {
+		return $this->contacts->toArray();
 	}
 
 	public function addContact( Contact $contact )
