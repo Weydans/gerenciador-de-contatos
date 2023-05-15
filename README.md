@@ -17,7 +17,7 @@ A mesma pode ser acessada pela seguinte url:
 
 - Com Exceção do `Doctrine` e do `Composer` todos os demais códigos foram desenvolvidos exclusivamente por mim, incluido toda a parte de roteamento, abstração de controladores, traits, services e etc.
 
-- A rquitetura utilizada visa separar as camadas de domínio, serviço, infraestrutura e demais detalhes, isolando assim as regras de negócio, e o fato de não ser necessário alterar nada nos modelos nem na camada de serviço, para a utilização em cli ou api, confirma essa afirmação.
+- A rquitetura utilizada visa separar as camadas de domínio, serviço, infraestrutura e demais detalhes, isolando assim as regras de negócio, e o fato de não ser necessário alterar nada nos modelos nem na camada de serviço para a utilização em cli ou api, confirma essa afirmação.
 
 - O projeto foi desenvolvido todo do zero em apenas dois dias, mas esse tempo poderia ter sido reduzido a poucas horas se utilizando algum framework de mercado que fornecesse algumas abstrações e ferramentas. Uma pena não ter tido tempo suficiente para implementar os testes de unidade e integração que estâo nos meus plamos. Vou aguardar a avaliação como solicitado no `README.md`, mas, após o resultado, volto para implementálos. Se você avaliador quiser pode me solicitar a implementação que farei logo. 
 
