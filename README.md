@@ -19,7 +19,7 @@ A mesma pode ser acessada pela seguinte url:
 
 - A rquitetura utilizada visa separar as camadas de domínio, serviço, infraestrutura e demais detalhes, isolando assim as regras de negócio, e o fato de não ser necessário alterar nada nos modelos nem na camada de serviço, para a utilização em cli ou api, confirma essa afirmação.
 
-- O projeto foi desenvolvido todo do zero em apenas dois dias, mas esse tempo poderia ter sido reduzido a poucas horas se utilizando algum framework de mercado que fornecesse algumas abstrações e ferramentas. Uma pena não ter tido tempo suficiente para implementar os testes de unidade e integração que estâo nos meus plamos. Vou aguardar a avaliação como solicitado no `README.md`, mas, após o resultado, volto para implementálos. Se você avaliador quiser pode me solicitar a implementa. 
+- O projeto foi desenvolvido todo do zero em apenas dois dias, mas esse tempo poderia ter sido reduzido a poucas horas se utilizando algum framework de mercado que fornecesse algumas abstrações e ferramentas. Uma pena não ter tido tempo suficiente para implementar os testes de unidade e integração que estâo nos meus plamos. Vou aguardar a avaliação como solicitado no `README.md`, mas, após o resultado, volto para implementálos. Se você avaliador quiser pode me solicitar a implementação que farei logo. 
 
 - E para finalizar, eu quero dizer que mesmo passando o fim de semana por conta do projeto, foi algo muito prazeroso de se fazer. Sou apaixonado por tecnologia em geral, especialmente por PHP, que pra mim é uma das melhores linguagens da atualidade, principalmente, por aliar uma excelete ergonomia ao programador e também ser muito eficiente no que se propões a entregar.
 
