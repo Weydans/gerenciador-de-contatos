@@ -17,7 +17,6 @@ status:
 
 install:
 	cp .env.example .env
-	mkdir .data
 	docker-compose up -d --build
 
 uninstall:
