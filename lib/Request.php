@@ -8,22 +8,17 @@ class Request
 	private $post;
 	private $server;
 
+	use Getters, Issets;
+
 	public function __construct()
 	{
+		$post = filter_input_array( INPUT_POST, FILTER_DEFAULT );
+		$this->post = empty( $post ) ? json_decode( file_get_contents( 'php://input' ) ) :  ( object ) $post;
+
 		$this->get    = ( object ) filter_input_array( INPUT_GET, FILTER_DEFAULT );	
-		$this->post   = ( object ) filter_input_array( INPUT_POST, FILTER_DEFAULT );
 		$this->server = ( object ) array_change_key_case( $_SERVER, CASE_LOWER );
-
+		
 		$this->setRequestUri();
-	}
-
-	public function __get( string $prop )
-	{
-		if ( empty( $this->$prop ) ) {	
-			throw new \Exception("Request has no member called '{$prop}'");
-		}
-
-		return $this->$prop;
 	}
 
 	private function setRequestUri()

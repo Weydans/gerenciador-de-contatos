@@ -16,9 +16,11 @@ abstract class Controller
 
 	public function __construct( Request $request, Response $response )
 	{
-		$this->get 		= $request->get;
-		$this->post 	= $request->post;
-		$this->request 	= $request;
+		$this->request = ( object ) array_merge( 
+			( array ) $request->get,
+			( array ) $request->post
+		);
+
 		$this->response = $response;
 		$this->data		= new stdclass();
 	}
@@ -34,7 +36,6 @@ abstract class Controller
 	{
         header( 'Content-Type: application/json' );
         header( 'Accept: application/json' );
-        header( 'Access-Control-Allow-Methods: *' );
 		
 		$this->setResponse( $httpCode, $message );
 
@@ -48,5 +49,4 @@ abstract class Controller
 		$this->response->data	 	= $this->data;
 	}
 }
-
 

@@ -24,7 +24,7 @@
     }
   ],
   "paths": {
-    "/person": {
+    "/persons": {
       "get": {
         "tags": [
           "Person"
@@ -133,7 +133,7 @@
         }
       }
     },
-    "/person/{id}": {
+    "/persons/{id}": {
       "parameters": [
         {
           "name": "id",
@@ -275,7 +275,7 @@
         }
       }
     },
-    "/contact": {
+    "/contacts": {
       "get": {
         "tags": [
           "Contact"
@@ -389,7 +389,7 @@
         }
       }
     },
-    "/contact/{id}": {
+    "/contacts/{id}": {
       "parameters": [
         {
           "name": "id",

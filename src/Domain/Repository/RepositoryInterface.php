@@ -12,7 +12,9 @@ interface RepositoryInterface
 
 	public function create( object $person ) : ?object;
 
-	public function save() : bool;
+	public function update( object $entity ) : ?object;
+
+	public function save();
 	
 	public function delete( int $id ) : bool;
 }
