@@ -36,6 +36,7 @@ abstract class Controller
 	{
         header( 'Content-Type: application/json' );
         header( 'Accept: application/json' );
+		header( "{$_SERVER['SERVER_PROTOCOL']} {$httpCode}");
 		
 		$this->setResponse( $httpCode, $message );
 
