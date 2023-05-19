@@ -46,7 +46,7 @@ class PersonController extends Controller
 			return $this->responseJson( 404, $e->getMessage() );
 		
 		} catch ( \Exception $e ) {
-			$message = $_ENV['APP_DEBUG'] ? $e->getMessage() : 'Something went wrong';
+			$message = $_ENV['APP_DEBUG'] ? $e->getMessage() : 'Error on list people';
 			return $this->responseJson( 500, $message );
 		} 
 	}
@@ -61,10 +61,10 @@ class PersonController extends Controller
 			$person = PersonCreateService::execute( $this->request, new PersonDoctrineRepository() );
 			$this->data = $person->toJson();
 
-			return $this->responseJson( 201, 'success' );
+			return $this->responseJson( 201, 'Person created with success' );
 		
 		} catch ( \Exception $e ) {
-			$message = $_ENV['APP_DEBUG'] ? $e->getMessage() : 'Something went wrong';
+			$message = $_ENV['APP_DEBUG'] ? $e->getMessage() : 'Error on create person';
 			return $this->responseJson( 500, $message );
 		} 
 	}
@@ -86,7 +86,7 @@ class PersonController extends Controller
 			return $this->responseJson( 404, $e->getMessage() );
 		
 		} catch ( \Exception $e ) {
-			$message = $_ENV['APP_DEBUG'] ? $e->getMessage() : 'Something went wrong';
+			$message = $_ENV['APP_DEBUG'] ? $e->getMessage() : 'Error on show person';
 			return $this->responseJson( 500, $message );
 		} 
 	}
@@ -100,13 +100,13 @@ class PersonController extends Controller
 
 			$person = PersonUpdateService::execute( $this->request, new PersonDoctrineRepository() );
 			$this->data = $person->toJson();
-			return $this->responseJson( 200, 'success' );
+			return $this->responseJson( 200, 'Person updated with success' );
 		
 		} catch ( RegisterNotFoundException $e ) {
 			return $this->responseJson( 404, $e->getMessage() );
 		
 		} catch ( \Exception $e ) {
-			$message = $_ENV['APP_DEBUG'] ? $e->getMessage() : 'Something went wrong';
+			$message = $_ENV['APP_DEBUG'] ? $e->getMessage() : 'Error on update person';
 			return $this->responseJson( 500, $message );
 		} 
 	}
@@ -115,13 +115,13 @@ class PersonController extends Controller
 	{
 		try {
 			PersonDeleteService::execute( $this->request->id, new PersonDoctrineRepository() );
-			return $this->responseJson( 204, 'success' );
+			return $this->responseJson( 204, 'Person removed with success' );
 		
 		} catch ( RegisterNotFoundException $e ) {
 			return $this->responseJson( 404, $e->getMessage() );
 		
 		} catch ( \Exception $e ) {
-			$message = $_ENV['APP_DEBUG'] ? $e->getMessage() : 'Something went wrong';
+			$message = $_ENV['APP_DEBUG'] ? $e->getMessage() : 'Error on delete person';
 			return $this->responseJson( 500, $message );
 		} 
 	}

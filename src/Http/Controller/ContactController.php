@@ -44,10 +44,9 @@ class ContactController extends Controller
 			return $this->responseJson( 404, $e->getMessage() );
 		
 		} catch ( \Exception $e ) {
-			$message = $_ENV['APP_DEBUG'] ? $e->getMessage() : 'Something went wrong';
+			$message = $_ENV['APP_DEBUG'] ? $e->getMessage() : 'Error on contatct list';
 			return $this->responseJson( 500, $message );
 		} 
-
 	}
 	
 	public function create() 
@@ -70,10 +69,10 @@ class ContactController extends Controller
 			$this->data = $contact->toJson();
 			$this->data['personId'] = $personId;
 			
-			return $this->responseJson( 201, 'success' );
+			return $this->responseJson( 201, 'Contact created with success' );
 		
 		} catch ( \Exception $e ) {
-			$message = $_ENV['APP_DEBUG'] ? $e->getMessage() : 'Something went wrong';
+			$message = $_ENV['APP_DEBUG'] ? $e->getMessage() : 'Error on create contact';
 			return $this->responseJson( 500, $message );
 		} 
 	}
@@ -92,7 +91,7 @@ class ContactController extends Controller
 			return $this->responseJson( 404, $e->getMessage() );
 		
 		} catch ( \Exception $e ) {
-			$message = $_ENV['APP_DEBUG'] ? $e->getMessage() : 'Something went wrong';
+			$message = $_ENV['APP_DEBUG'] ? $e->getMessage() : 'Error on show contact';
 			return $this->responseJson( 500, $message );
 		} 
 	}
@@ -118,20 +117,30 @@ class ContactController extends Controller
 			$this->data = $contact->toJson();
 			$this->data['personId'] = $personId;
 			
-			return $this->responseJson( 200, 'success' );
+			return $this->responseJson( 200, 'Contact updated with success' );
 		
 		} catch ( RegisterNotFoundException $e ) {
 			return $this->responseJson( 404, $e->getMessage() );
 		
 		} catch ( \Exception $e ) {
-			$message = $_ENV['APP_DEBUG'] ? $e->getMessage() : 'Something went wrong';
+			$message = $_ENV['APP_DEBUG'] ? $e->getMessage() : 'Error on update contact';
 			return $this->responseJson( 500, $message );
 		} 
 	}
 
 	public function delete() 
 	{
-
+		try {
+			ContactDeleteService::execute( $this->request->id, new ContactDoctrineRepository() );
+			return $this->responseJson( 204, 'Contact removed with success' );
+		
+		} catch ( RegisterNotFoundException $e ) {
+			return $this->responseJson( 404, $e->getMessage() );
+		
+		} catch ( \Exception $e ) {
+			$message = $_ENV['APP_DEBUG'] ? $e->getMessage() : 'Error on contact remove';
+			return $this->responseJson( 500, $message );
+		} 
 	}
 }
 
