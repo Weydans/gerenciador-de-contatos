@@ -115,7 +115,7 @@ class PersonController extends Controller
 	{
 		try {
 			PersonDeleteService::execute( $this->request->id, new PersonDoctrineRepository() );
-			return $this->responseJson( 204, 'Person removed with success' );
+			return $this->responseJson( 204, '' );
 		
 		} catch ( RegisterNotFoundException $e ) {
 			return $this->responseJson( 404, $e->getMessage() );

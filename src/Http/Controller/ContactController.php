@@ -34,8 +34,8 @@ class ContactController extends Controller
 
 			$this->data = [];
 			foreach ( $contactList as $contact ) {
-				$personId = $contact->person->id;
-				$this->data[] = array_merge( $contact->toJson(), [ 'personId' => $personId ]);
+				$person = $contact->person;
+				$this->data[] = array_merge( $contact->toJson(), [ 'person' => $person->toJson() ]);
 			}
 
 			return $this->responseJson( 200, 'success' );
@@ -65,11 +65,14 @@ class ContactController extends Controller
 				new PersonDoctrineRepository() 
 			);
 
-			$personId = $contact->person->id;
+			$person = $contact->person;
 			$this->data = $contact->toJson();
-			$this->data['personId'] = $personId;
+			$this->data['person'] = $person->toJson();
 			
 			return $this->responseJson( 201, 'Contact created with success' );
+		
+		} catch ( RegisterNotFoundException $e ) {
+			return $this->responseJson( 404, $e->getMessage() );
 		
 		} catch ( \Exception $e ) {
 			$message = $_ENV['APP_DEBUG'] ? $e->getMessage() : 'Error on create contact';
@@ -81,9 +84,9 @@ class ContactController extends Controller
 	{
 		try {
 			$contact = ContactSearchService::execute( 'id', $this->request->id, new ContactDoctrineRepository() );
-			$personId = $contact[0]->person->id;
+			$person = $contact[0]->person->toJson();
 			$this->data = $contact[0]->toJson();
-			$this->data['personId'] = $personId;
+			$this->data['person'] = $person;
 			
 			return $this->responseJson( 200, 'success' );
 		
@@ -100,7 +103,7 @@ class ContactController extends Controller
 	{
 		try {
 			if ( 	empty( $this->request->id )
-				 ||	!is_bool( $this->request->type ) 
+				 ||	( $this->request->type != '1' && $this->request->type != '0' ) 
 				 || empty( $this->request->description )
 				 || empty( $this->request->personId ) 
 			) {
@@ -113,9 +116,9 @@ class ContactController extends Controller
 				new PersonDoctrineRepository()
 			);
 
-			$personId = $contact->person->id;
+			$person = $contact->person;
 			$this->data = $contact->toJson();
-			$this->data['personId'] = $personId;
+			$this->data['person'] = $person->toJson();
 			
 			return $this->responseJson( 200, 'Contact updated with success' );
 		
@@ -132,7 +135,7 @@ class ContactController extends Controller
 	{
 		try {
 			ContactDeleteService::execute( $this->request->id, new ContactDoctrineRepository() );
-			return $this->responseJson( 204, 'Contact removed with success' );
+			return $this->responseJson( 204, '' );
 		
 		} catch ( RegisterNotFoundException $e ) {
 			return $this->responseJson( 404, $e->getMessage() );
