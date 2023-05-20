@@ -42,17 +42,7 @@ class ContactController extends Controller {
 		this.rootElement.innerHTML = formView.render();
 		
 		MenuHelper.addActions( this.rootElement, this.state, this.http );
-
-		document.getElementById( 'contactForm' )
-			.addEventListener( 'submit', async ( event ) => {
-				event.preventDefault();
-				this.state.contact = {
-					personId: event.target.person_id.value,
-					type: event.target.type.value == 1 ? true : false,
-					description: event.target.description.value,
-				};
-				this.onStore( this.state.contact, '/contacts' );
-			});
+		this.addContactFormAction();
 	}
 
 	async onView( id ) {
@@ -79,6 +69,11 @@ class ContactController extends Controller {
 		let contactFormView        = new ContactFormView( this.state );
 		this.rootElement.innerHTML = contactFormView.render(); 
 		
+		MenuHelper.addActions( this.rootElement, this.state, this.http );
+		this.addContactFormAction( id );
+	}
+
+	addContactFormAction( id = false ) {
 		document.getElementById( 'contactForm' )
 			.addEventListener( 'submit', async ( event ) => {
 				event.preventDefault();
@@ -87,10 +82,12 @@ class ContactController extends Controller {
 					type: event.target.type.value == 1 ? true : false,
 					description: event.target.description.value,
 				};
-				this.onUpdate( this.state.contact, id, '/contacts' );
+				if ( id ) {
+					this.onUpdate( this.state.contact, id, '/contacts' );
+					return;
+				}
+				this.onStore( this.state.contact, '/contacts' );
 			});
-
-		MenuHelper.addActions( this.rootElement, this.state, this.http );
 	}
 }
 

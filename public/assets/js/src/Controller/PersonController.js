@@ -26,14 +26,7 @@ class PersonController extends Controller {
 		this.rootElement.innerHTML = listView.render(); 
 		this.state                 = StateHelper.resetState();
 
-		document.getElementById( 'formSearch' )
-			.addEventListener( 'submit', async ( event ) => {
-				event.preventDefault();
-				this.state.personSearch.field = event.target.field.value;
-				this.state.personSearch.value = event.target.value.value;
-				this.onSearch();
-			});
-
+		this.addSearchAction();
 		MenuHelper.addActions( this.rootElement, this.state, this.http );
 		this.addListActions( 'Person', '/persons' );
 	}
@@ -48,16 +41,7 @@ class PersonController extends Controller {
 		this.rootElement.innerHTML = formView.render();
 		
 		MenuHelper.addActions( this.rootElement, this.state, this.http );
-
-		document.getElementById( 'personForm' )
-			.addEventListener( 'submit', async ( event ) => {
-				event.preventDefault();
-				this.state.person = {
-					name: event.target.name.value,
-					cpf: event.target.cpf.value,
-				};
-				this.onStore( this.state.person, '/persons' );
-			});
+		this.addPersonFormAction();
 	}
 
 	async onSearch() {
@@ -72,6 +56,7 @@ class PersonController extends Controller {
 		this.rootElement.innerHTML = listView.render(); 
 		this.state                 = StateHelper.resetState();
 
+		this.addSearchAction();
 		MenuHelper.addActions( this.rootElement, this.state, this.http );
 		this.addListActions( 'Person', '/persons' );
 	}
@@ -98,6 +83,11 @@ class PersonController extends Controller {
 		let personFormView         = new PersonFormView( this.state );
 		this.rootElement.innerHTML = personFormView.render(); 
 		
+		this.addPersonFormAction( id );
+		MenuHelper.addActions( this.rootElement, this.state, this.http );
+	}
+
+	addPersonFormAction( id = false ) {
 		document.getElementById( 'personForm' )
 			.addEventListener( 'submit', async ( event ) => {
 				event.preventDefault();
@@ -105,10 +95,22 @@ class PersonController extends Controller {
 					name: event.target.name.value,
 					cpf: event.target.cpf.value,
 				};
-				this.onUpdate( this.state.person, id, '/persons' );
+				if ( id ) {
+					this.onUpdate( this.state.person, id, '/persons' );
+					return;
+				}
+				this.onStore( this.state.person, '/persons' );
 			});
+	}
 
-		MenuHelper.addActions( this.rootElement, this.state, this.http );
+	addSearchAction() {
+		document.getElementById( 'formSearch' )
+			.addEventListener( 'submit', async ( event ) => {
+				event.preventDefault();
+				this.state.personSearch.field = event.target.field.value;
+				this.state.personSearch.value = event.target.value.value;
+				this.onSearch();
+			});
 	}
 }
 
