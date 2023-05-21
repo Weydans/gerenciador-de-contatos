@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use App\Domain\Validation\CPFValidator;
 
 #[Entity]
 class Person implements SerializeableInterface
@@ -73,8 +74,10 @@ class Person implements SerializeableInterface
 
 	public function setCpf( string $cpf )
 	{
-		if ( mb_strlen( $cpf ) != 11 || !is_numeric( $cpf ) ) {
-			throw new \Exception( 'Cpf must be 11 digits exactly' );
+		$cpfValidator = new CPFValidator( $cpf );
+
+		if ( !$cpfValidator->isValid() ) {
+			throw new \Exception( $cpfValidator->getError() );
 		}
 
 		$this->cpf = $cpf;
