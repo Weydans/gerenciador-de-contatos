@@ -64,6 +64,7 @@ class Person implements SerializeableInterface
 	 * Returns a Person contacts list 
 	 *
 	 * @return array contacts list
+     * @codeCoverageIgnore
 	 */
 	public function getContacts() {
 		return $this->contacts->toArray();

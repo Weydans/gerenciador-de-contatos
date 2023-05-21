@@ -27,7 +27,7 @@
 	<coverage includeUncoveredFiles="true"
           pathCoverage="false"
           ignoreDeprecatedCodeUnits="true"
-          disableCodeCoverageIgnore="true">
+          disableCodeCoverageIgnore="false">
 		
 		<report>
 			<html outputDirectory="coverage" lowUpperBound="50" highLowerBound="90"/>

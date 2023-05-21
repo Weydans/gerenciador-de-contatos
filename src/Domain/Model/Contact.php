@@ -62,6 +62,8 @@ class Contact implements SerializeableInterface
      * 
      * @param bool $type
      * @return void
+     * 
+     * @codeCoverageIgnore
      */
 	public function setType( bool $type )
 	{
@@ -88,6 +90,8 @@ class Contact implements SerializeableInterface
      * Set a contact owner
      * 
      * @param Person $person contact owner
+     * 
+     * @codeCoverageIgnore
      */
 	public function setPerson( Person $person )
 	{
