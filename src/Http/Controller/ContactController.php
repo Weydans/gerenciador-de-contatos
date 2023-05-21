@@ -3,8 +3,6 @@
 namespace App\Http\Controller;
 
 use Lib\Controller;
-use App\Model\Contact;
-use App\Model\Person;
 use App\Domain\Service\ContactReadService;
 use App\Domain\Service\ContactCreateService;
 use App\Domain\Service\ContactSearchService;
@@ -14,8 +12,18 @@ use App\Domain\Repository\PersonDoctrineRepository;
 use App\Domain\Repository\ContactDoctrineRepository;
 use App\Domain\Exception\RegisterNotFoundException;
 
+/**
+ * Controller class responsible to handle contact http actions 
+ * 
+ * @author Weydans Barros
+ */
 class ContactController extends Controller
 {
+    /**
+     * Recover all contacts and search contacts
+     * 
+     * @return string jsom with list of contacts
+     */
 	public function read() 
 	{
 		try {
@@ -49,6 +57,11 @@ class ContactController extends Controller
 		} 
 	}
 	
+    /**
+     * Create a new contact
+     * 
+     * @return string jsom contact created or an error message
+     */
 	public function create() 
 	{
 		try {
@@ -80,6 +93,11 @@ class ContactController extends Controller
 		} 
 	}
 
+    /**
+     * Recover a contact by id given
+     * 
+     * @return string jsom contact found or an error message
+     */
 	public function show() 
 	{
 		try {
@@ -99,6 +117,11 @@ class ContactController extends Controller
 		} 
 	}
 
+    /**
+     * Update a contact
+     * 
+     * @return string jsom contact updated or error message
+     */
 	public function update() 
 	{
 		try {
@@ -131,6 +154,11 @@ class ContactController extends Controller
 		} 
 	}
 
+    /**
+     * Delete a contact 
+     * 
+     * @return string|null return a string message on error or null on success
+     */
 	public function delete() 
 	{
 		try {
@@ -146,4 +174,3 @@ class ContactController extends Controller
 		} 
 	}
 }
-

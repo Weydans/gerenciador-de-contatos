@@ -3,7 +3,6 @@
 namespace App\Http\Controller;
 
 use Lib\Controller;
-use App\Model\Person;
 use App\Domain\Service\PersonReadService;
 use App\Domain\Service\PersonCreateService;
 use App\Domain\Service\PersonSearchService;
@@ -12,8 +11,18 @@ use App\Domain\Service\PersonDeleteService;
 use App\Domain\Repository\PersonDoctrineRepository;
 use App\Domain\Exception\RegisterNotFoundException;
 
+/**
+ * Controller class responsible to handle person http actions 
+ * 
+ * @author Weydans Barros
+ */
 class PersonController extends Controller
 {
+    /**
+     * Recover all people or only those according to the filter
+     * 
+     * @return string jsom people list or an error message
+     */
 	public function read() 
 	{
 		try {
@@ -51,6 +60,11 @@ class PersonController extends Controller
 		} 
 	}
 	
+    /**
+     * Create a new person
+     * 
+     * @return string jsom person created or an error message
+     */
 	public function create() 
 	{
 		try {
@@ -69,6 +83,11 @@ class PersonController extends Controller
 		} 
 	}
 
+    /**
+     * Recover a person according the id given
+     * 
+     * @return string json with a person or an error message
+     */
 	public function show() 
 	{
 		try {
@@ -91,6 +110,11 @@ class PersonController extends Controller
 		} 
 	}
 
+    /**
+     * Update a person 
+     * 
+     * @return string jsom person updated or an error message
+     */
 	public function update() 
 	{
 		try {
@@ -111,6 +135,11 @@ class PersonController extends Controller
 		} 
 	}
 
+    /**
+     * Delete a person
+     * 
+     * @return string|null message on fail or no content on success
+     */
 	public function delete() 
 	{
 		try {
@@ -126,4 +155,3 @@ class PersonController extends Controller
 		} 
 	}
 }
-

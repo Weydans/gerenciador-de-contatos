@@ -6,8 +6,18 @@ use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMSetup;
 
+/**
+ * Structure class responsible to create a Doctrine EntityManager
+ * 
+ * @author Weydans Barros
+ */
 class EntityManagerFactory
 {
+    /**
+     * Create Doctrine EntityManager
+     * 
+     * @return EntityManager Doctrine EntityManager
+     */
 	public function create() : EntityManager
 	{
 		$config = ORMSetup::createAttributeMetadataConfiguration(
@@ -27,4 +37,3 @@ class EntityManagerFactory
 		return new EntityManager($connection, $config);	
 	}
 }
-
