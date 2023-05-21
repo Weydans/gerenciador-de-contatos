@@ -14,6 +14,11 @@ use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\GeneratedValue;
 
 #[Entity]
+/**
+ * Represents a person contact on system
+ * 
+ * @author Weydans Barros
+ */
 class Contact implements SerializeableInterface 
 {
 	#[Id]
@@ -38,6 +43,13 @@ class Contact implements SerializeableInterface
 
 	use Getters, Setters, Issets, Serializeable;
 
+    /**
+     * Create a new instance of Contact entity
+     * 
+     * @param bool $type contact type [ 0 = E-mail, 1 = Phone ]
+     * @param string $description e-mail address or phone number
+     * @param Person $person owner of the contact
+     */
 	public function __construct( bool $type, string $description, Person $person )
 	{
 		$this->setType( $type );
@@ -45,11 +57,24 @@ class Contact implements SerializeableInterface
 		$this->setPerson( $person );
 	}
 
+    /**
+     * Set a contact type [ 0 = E-mail, 1 = Phone ]
+     * 
+     * @param bool $type
+     * @return void
+     */
 	public function setType( bool $type )
 	{
 		$this->type = $type;
 	}
 
+    /**
+     * Set a contact description or throws exception on invalid value
+     * 
+     * @param string $description e-mail address or phone number
+     * @throws \Exception
+     * @return void
+     */
 	public function setDescription( string $description )
 	{
 		if ( mb_strlen( $description) < 3 || mb_strlen( $description) > 191 ) {
@@ -59,9 +84,13 @@ class Contact implements SerializeableInterface
 		$this->description = $description;
 	}
 
+    /**
+     * Set a contact owner
+     * 
+     * @param Person $person contact owner
+     */
 	public function setPerson( Person $person )
 	{
 		$this->person = $person;
 	}
 }
-

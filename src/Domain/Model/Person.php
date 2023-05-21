@@ -17,6 +17,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use App\Domain\Validation\CPFValidator;
 
 #[Entity]
+/**
+ * Responsible to represent a person in system
+ * @author Weydans Barros
+ */
 class Person implements SerializeableInterface
 {
 	#[Id]
@@ -40,7 +44,14 @@ class Person implements SerializeableInterface
 	private $serializeable = [ 'id', 'name', 'cpf', 'contacts' ];
 
 	use Getters, Setters, Issets, Serializeable;
-
+	
+	/**
+	 * Creates a new Person
+	 *
+	 * @param  string $name Person name
+	 * @param  string $cpf  Person cpf
+	 * @return Person
+	 */
 	public function __construct( string $name, string $cpf )
 	{
 		$this->setName( $name );
@@ -48,21 +59,45 @@ class Person implements SerializeableInterface
 
 		$this->contacts = new ArrayCollection();
 	}
-	
+
+	/**
+	 * Returns a Person contacts list 
+	 *
+	 * @return array contacts list
+	 */
 	public function getContacts() {
 		return $this->contacts->toArray();
 	}
 
+	/**
+	 * Add new contact to cotacts list 
+	 *
+	 * @param Contact $contact contact entity
+	 * @return void
+	 */
 	public function addContact( Contact $contact )
 	{
 		$this->contacts->add( $contact );
 	}
 
+	/**
+	 * Remove a contact from cotacts list 
+	 *
+	 * @param Contact $contact contact entity
+	 * @return void
+	 */
 	public function removeContact( Contact $contact )
 	{
 		$this->contacts->removeElement( $contact );
 	}
 
+	/**
+	 * Set a person name or thows Exception on invalid value
+	 *
+	 * @param string $name person name
+	 * @throws Exception
+	 * @return void
+	 */
 	public function setName( string $name )
 	{
 		if ( mb_strlen( $name ) < 3 || mb_strlen( $name ) > 191 ) {
@@ -72,6 +107,13 @@ class Person implements SerializeableInterface
 		$this->name = $name;
 	}
 
+	/**
+	 * Set a person cpf or thows Exception on invalid value
+	 *
+	 * @param string $cpf person cpf
+	 * @throws Exception
+	 * @return void
+	 */
 	public function setCpf( string $cpf )
 	{
 		$cpfValidator = new CPFValidator( $cpf );
@@ -83,4 +125,3 @@ class Person implements SerializeableInterface
 		$this->cpf = $cpf;
 	}
 }
-
