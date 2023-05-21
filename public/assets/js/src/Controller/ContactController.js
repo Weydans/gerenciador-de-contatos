@@ -5,11 +5,28 @@ import StateHelper     from "../Helper/StateHelper.js";
 import ContactFormView from "../View/ContactFormView.js";
 import ContactListView from "../View/ContactListView.js";
 
+/**
+ * Controller class responsible to manage contact actions
+ * 
+ * @author Weydans Barros
+ */
 class ContactController extends Controller {
-	constructor( rootElement, state, http ) {
+    /**
+     * Set initial attributes 
+     * 
+     * @param {HTMLElement} rootElement
+     * @param {object} state app global state
+     * @param {HTTPSClient} http client to make http calls
+     */
+    constructor( rootElement, state, http ) {
 		super( rootElement, state, http );
 	}
 
+    /**
+     * Make a http call to recover all contacts and render it on browser
+     * 
+     * @returns {void}
+     */
 	async onList() {
 		let response             = await this.http.get( '/contacts' );
 		let numRegistersFound    = Object.keys( response.data ).length;
@@ -29,7 +46,13 @@ class ContactController extends Controller {
 		MenuHelper.addActions( this.rootElement, this.state, this.http );
 		this.addListActions( 'Contact', '/contacts' );
 	}
-
+    
+    /**
+     * Render contact form and make a http call to create contact
+     * 
+     * @param {boolean} createError verify if an error happend, true on error
+     * @returns {void}
+     */
 	async onCreate( createError = false ) {
 		if ( !createError ) {
 			this.state = StateHelper.resetState();
@@ -44,7 +67,13 @@ class ContactController extends Controller {
 		MenuHelper.addActions( this.rootElement, this.state, this.http );
 		this.addContactFormAction();
 	}
-
+    
+    /**
+     * Make a http call to get a contact and render contact view 
+     * 
+     * @param {int} id contact id to request to remote server
+     * @returns {void}
+     */
 	async onView( id ) {
 		const uri                  = `/contacts/${id}`;
 		let response               = await this.http.get( uri );
@@ -56,7 +85,13 @@ class ContactController extends Controller {
 		
 		MenuHelper.addActions( this.rootElement, this.state, this.http );
 	}
-
+    
+    /**
+     * Make a http call to get a contact and render contact form 
+     * 
+     * @param {int} id contact id to request to remote server
+     * @returns {void}
+     */
 	async onEdit( id ) {
 		if ( this.state.contact.id != id ) {
 			let response       = await this.http.get( `/contacts/${id}` );
@@ -73,6 +108,12 @@ class ContactController extends Controller {
 		this.addContactFormAction( id );
 	}
 
+    /**
+     * Add form event
+     *  
+     * @param {int} id contact id to request to remote server
+     * @returns {void}
+     */
 	addContactFormAction( id = false ) {
 		document.getElementById( 'contactForm' )
 			.addEventListener( 'submit', async ( event ) => {
@@ -80,7 +121,7 @@ class ContactController extends Controller {
 				this.state.contact = {
 					personId: event.target.person_id.value,
 					type: event.target.type.value == 1 ? true : false,
-					description: event.target.description.value,
+					description: event.target.description.value
 				};
 				if ( id ) {
 					this.onUpdate( this.state.contact, id, '/contacts' );

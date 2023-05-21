@@ -5,11 +5,28 @@ import StateHelper    from "../Helper/StateHelper.js";
 import PersonListView from "../View/PersonListView.js";
 import PersonFormView from "../View/PersonFormView.js";
 
+/**
+ * Controller class responsible to manage person actions
+ * 
+ * @author Weydans Barros
+ */
 class PersonController extends Controller {
+    /**
+     * Set initial attributes 
+     * 
+     * @param {HTMLElement} rootElement
+     * @param {object} state app global state
+     * @param {HTTPSClient} http client to make http calls
+     */
 	constructor( rootElement, state, http ) {
 		super( rootElement, state, http );
 	}
-
+    
+    /**
+     * Make a http call to recover all people and render it on browser
+     * 
+     * @returns {void}
+     */
 	async onList() {
 		let response            = await this.http.get( '/persons' );
 		let numRegistersFound   = Object.keys( response.data ).length;
@@ -30,7 +47,13 @@ class PersonController extends Controller {
 		MenuHelper.addActions( this.rootElement, this.state, this.http );
 		this.addListActions( 'Person', '/persons' );
 	}
-
+    
+    /**
+     * Render person form and make a http call to create contact
+     * 
+     * @param {boolean} createError verify if an error happend, true on error
+     * @returns {void}
+     */
 	onCreate( createError = false ) {
 		if ( !createError ) {
 			this.state = StateHelper.resetState();
@@ -44,6 +67,11 @@ class PersonController extends Controller {
 		this.addPersonFormAction();
 	}
 
+    /**
+     * Make a http call to serach people and render results
+     * 
+     * @returns {void}
+     */
 	async onSearch() {
 		const uri 			       = `/persons?field=${this.state.personSearch.field}&value=${this.state.personSearch.value}`;
 		let response               = await this.http.get( uri );
@@ -60,7 +88,13 @@ class PersonController extends Controller {
 		MenuHelper.addActions( this.rootElement, this.state, this.http );
 		this.addListActions( 'Person', '/persons' );
 	}
-
+    
+    /**
+     * Make a http call to get a person and render person view 
+     * 
+     * @param {int} id person id to request to remote server
+     * @returns {void}
+     */
 	async onView( id ) {
 		const uri                  = `/persons/${id}`;
 		let response               = await this.http.get( uri );
@@ -72,7 +106,13 @@ class PersonController extends Controller {
 		
 		MenuHelper.addActions( this.rootElement, this.state, this.http );
 	}
-
+    
+    /**
+     * Make a http call to get a person and render person form 
+     * 
+     * @param {int} id person id to request to remote server
+     * @returns {void}
+     */
 	async onEdit( id ) {
 		if ( this.state.person.id != id ) {
 			let response      = await this.http.get( `/persons/${id}` );
@@ -87,13 +127,19 @@ class PersonController extends Controller {
 		MenuHelper.addActions( this.rootElement, this.state, this.http );
 	}
 
+    /**
+     * Add form event
+     *  
+     * @param {int} id person id to request to remote server
+     * @returns {void}
+     */
 	addPersonFormAction( id = false ) {
 		document.getElementById( 'personForm' )
 			.addEventListener( 'submit', async ( event ) => {
 				event.preventDefault();
 				this.state.person = {
 					name: event.target.name.value,
-					cpf: event.target.cpf.value,
+					cpf: event.target.cpf.value
 				};
 				if ( id ) {
 					this.onUpdate( this.state.person, id, '/persons' );
@@ -103,6 +149,11 @@ class PersonController extends Controller {
 			});
 	}
 
+    /**
+     * Add search form event
+     *  
+     * @returns {void}
+     */
 	addSearchAction() {
 		document.getElementById( 'formSearch' )
 			.addEventListener( 'submit', async ( event ) => {

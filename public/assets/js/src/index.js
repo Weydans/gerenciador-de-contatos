@@ -1,3 +1,10 @@
+/**
+ * App entry point file
+ * Responsible to load dependencies and call initial controller
+ * 
+ * @author Weydans Barros
+ */
+
 import HTTPClient       from "./Service/HTTPClient.js";
 import StateHelper      from "./Helper/StateHelper.js";
 import PersonController from "./Controller/PersonController.js"
@@ -8,4 +15,3 @@ let state 		  = StateHelper.createState();
 
 const controller = new PersonController( rootElement, state, http );
 controller.onList();
-
