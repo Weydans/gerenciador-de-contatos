@@ -2,6 +2,11 @@
 
 namespace App\Domain\Validation;
 
+/**
+ * Responsible to validate a given CPF
+ * 
+ * @author Weydans Barros
+ */
 class CPFValidator
 {
 	const INVALID_SEQUENCE_LIST = [
@@ -19,6 +24,12 @@ class CPFValidator
 
 	protected ?string $error = null;
 
+    /**
+     * Validate a given CPF
+     * 
+     * @param type $value raw CPF given
+     * @return CPFValidator 
+     */
 	public function __construct( $value )
 	{
 		$cpfDigits = $this->getDigits( $value );
@@ -37,21 +48,44 @@ class CPFValidator
 		}
 	}
 
+    /**
+     * Verify if CPF is valid
+     * 
+     * @return bool return true on success of false if invalid CPF
+     */
 	public function isValid() : bool
 	{
 		return $this->error ? false : true;
 	}
 
+    /**
+     * Return an erro message
+     * 
+     * @return string|null return string error on invalid or null on valid CPF
+     */
 	public function getError() : ?string
 	{
 		return $this->error;
 	}
 
+    /**
+     * Get only digits from given CPF
+     * 
+     * @param string $cpfValue raw CPF
+     * @return string only digits string
+     */
 	protected function getDigits( string $cpfValue ) : string
 	{
 		return preg_replace( '/\D/', '', $cpfValue ) ?? '';
 	}
 
+    /**
+     * Calculate CPF verifier digits
+     * 
+     * @param string $cpfDigits CPF string
+     * @param int $position digit position to calculate 
+     * @return int return verifier digit
+     */
 	protected function calculateDigitAt( string $cpfDigits, int $position ) : int
 	{
 		$multiplier  = $position + 1;
@@ -66,4 +100,3 @@ class CPFValidator
 		return $rest > 1 ? 11 - $rest : 0;
 	}
 }
-

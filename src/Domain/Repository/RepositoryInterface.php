@@ -2,6 +2,11 @@
 
 namespace App\Domain\Repository;
 
+/**
+ * Responsible to give a pattern repository 
+ * 
+ * @author Weydans Barros
+ */
 interface RepositoryInterface
 {
 	public function __construct();
@@ -18,4 +23,3 @@ interface RepositoryInterface
 	
 	public function delete( int $id ) : bool;
 }
-
