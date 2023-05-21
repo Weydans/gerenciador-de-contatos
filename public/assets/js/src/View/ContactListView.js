@@ -1,10 +1,26 @@
 import TemplateView from "./TemplateView.js";
 
+/**
+ * View class responsible to generate contact list view
+ * 
+ * @author Weydans Barros
+ */
 class ContactListView extends TemplateView {
+    /**
+     * Create a new ContactListView instance
+     * 
+     * @param {type} state app global state
+     * @returns {ContactListView}
+     */
 	constructor( state ) {
 		super( state );
 	}
 
+    /**
+     * Create a contact list view with data 
+     * 
+     * @returns {String} HTML view
+     */
 	view() {
 		const { contactList, contactSearch } = this.state;
 

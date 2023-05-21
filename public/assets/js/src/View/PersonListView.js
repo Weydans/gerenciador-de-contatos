@@ -1,10 +1,26 @@
 import TemplateView from "./TemplateView.js";
 
+/**
+ * View class responsible to generate person list view
+ * 
+ * @author Weydans Barros
+ */
 class PersonListView extends TemplateView {
-	constructor( state ) {
+    /**
+     * Create a new PersonListView instance
+     * 
+     * @param {type} state app global state
+     * @returns {PersonListView}
+     */
+    constructor( state ) {
 		super( state );
 	}
 
+    /**
+     * Create a person list view with data 
+     * 
+     * @returns {String} HTML view
+     */
 	view() {
 		const { personList, personSearch } = this.state;
 

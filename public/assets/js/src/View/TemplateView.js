@@ -1,12 +1,32 @@
+/**
+ * View class responsible to provide a default template 
+ * and be a super class of other views
+ * 
+ * @author Weydans Barros
+ */
 class TemplateView {
+    /**
+     * Create a new TemplateView instance
+     * 
+     * @param {type} state app global state
+     * @returns {TemplateView}
+     */
 	constructor( state ) {
 		this.state = state;
 	}
 
+    /**
+     * "Abstract" method that sub classes must implement
+     */
 	view() {
 		throw new Error( 'Method "view" must be implemented' );
 	}
-
+    
+    /**
+     * Create a view with data 
+     * 
+     * @returns {String} HTML view
+     */
 	render() {
 		return (`
 			<div class="container">
@@ -26,8 +46,8 @@ class TemplateView {
 							</div>
 							${ 
 							this.state.message 
-							? `<div class="alert alert-${ this.state.messageType }">${ this.state.message }</div>`
-							: ''
+                            	? `<div class="alert alert-${ this.state.messageType }">${ this.state.message }</div>`
+                                : ''
 							}
 							${ this.view() }
 						</div>

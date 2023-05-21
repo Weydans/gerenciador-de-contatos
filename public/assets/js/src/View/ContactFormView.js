@@ -1,10 +1,26 @@
 import TemplateView from "./TemplateView.js";
 
+/**
+ * View class responsible to generate contact form view
+ * 
+ * @author Weydans Barros
+ */
 class ContactFormView extends TemplateView {
+    /**
+     * Create a new ContactFormView instance
+     * 
+     * @param {type} state app global state
+     * @returns {ContactFormView}
+     */
 	constructor( state ) {
 		super( state );
 	}
 
+    /**
+     * Create a contact form view with data 
+     * 
+     * @returns {String} HTML view
+     */
 	view() {
 		const { contact, personList } = this.state;
 

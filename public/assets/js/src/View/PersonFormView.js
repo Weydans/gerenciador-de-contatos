@@ -1,10 +1,26 @@
 import TemplateView from "./TemplateView.js";
 
+/**
+ * View class responsible to generate person form view
+ * 
+ * @author Weydans Barros
+ */
 class PersonFormView extends TemplateView {
+    /**
+     * Create a new PersonFormView instance
+     * 
+     * @param {type} state app global state
+     * @returns {PersonFormView}
+     */
 	constructor( state ) {
 		super( state );
 	}
 
+    /**
+     * Create a person form view with data 
+     * 
+     * @returns {String} HTML view
+     */
 	view() {
 		const { person } = this.state;
 
