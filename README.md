@@ -2,7 +2,7 @@
 
 Sistema de getão de contatos de pessoas
 
-O sitema possui duas interfaces de comunicação. 
+O sitema possui três interfaces de comunicação. 
 Uma pela linha de comando, através dos arquivos .php, localizados na pasta `src/Cli/`.
 
 Para executá-los você pode utilizar a própria interface do `Docker`, como no exemplo a seguir: 
@@ -12,6 +12,8 @@ A outra forma é utilizar a documentação do `swagguer`, que gera uma iterface,
 A mesma pode ser acessada pela seguinte url: 
 `http://localhost:8001`.
 
+E por último, a interface web que pode ser acessada, também, pelo navegador, através da url `http://localhost:8000/`.
+
 
 ## Importante
 
@@ -19,9 +21,17 @@ A mesma pode ser acessada pela seguinte url:
 
 - A rquitetura utilizada visa separar as camadas de domínio, serviço, infraestrutura e demais detalhes, isolando assim as regras de negócio, e o fato de não ser necessário alterar nada nos modelos nem na camada de serviço para a utilização em cli ou api, confirma essa afirmação.
 
-- O projeto foi desenvolvido todo do zero em apenas dois dias, mas esse tempo poderia ter sido reduzido a poucas horas se utilizando algum framework de mercado que fornecesse algumas abstrações e ferramentas. Uma pena não ter tido tempo suficiente para implementar os testes de unidade e integração que estâo nos meus plamos. Vou aguardar a avaliação como solicitado no `README.md`, mas, após o resultado, volto para implementálos. Se você avaliador quiser pode me solicitar a implementação que farei logo. 
+- O projeto foi desenvolvido todo do zero em apenas dois dias, mas esse tempo poderia ter sido reduzido a poucas horas se utilizando algum framework de mercado que fornecesse algumas abstrações e ferramentas. 
 
 - E para finalizar, eu quero dizer que mesmo passando o fim de semana por conta do projeto, foi algo muito prazeroso de se fazer. Sou apaixonado por tecnologia em geral, especialmente por PHP, que pra mim é uma das melhores linguagens da atualidade, principalmente, por aliar uma excelete ergonomia ao programador e também ser muito eficiente no que se propões a entregar.
+
+### Observações
+
+- Foram adicionados os HTTP codes corretos nos cabeçálhos de resposta das requisições
+- Foi adicionada a validação de CPF
+- Foi adicionada a inteface web ( toda desenvolvida em Vanilla Javascript )
+- Foram adicionados comentários nas classes e métodos ( embora muitos autores desencoragem essa prática, motivo da não adição em primeiro momento )
+- Foi realizada a cobertura de testes de unidade sobre as principais classes de domínio do negócio, incluindo as pastas, Model, Service e Validation. Com isso a aplicação no geral possui atualmente 17.11% de cobertura incluido cli, api e web, contudo, a camada de domínio encontra-se com 70.33% de cobertura sendo que o que falta fica por conta dos repositórios que funcionam como adaptadores para cominicação com o Doctrine, ou seja, baixo risco de erros. 
 
 
 
@@ -70,9 +80,19 @@ sudo make
 
 ## Acesso
 
-O acesso pose ser realizado via documentação do Swagger que roda na url `http://localhost:8081/`, para acessar clique [aqui](http://localhost:8001/).
+O acesso pose ser realizado via documentação do Swagger que roda na url `http://localhost:8081/`, para acessar clique [aqui](http://localhost:8001/) ou pela url da aplicação web [aqui](http://localhost:8000/) nesse link.
 
     
+## Execução dos testes
+
+Executa os teste de unidade 
+```bash
+sudo make test
+```
+
+__Para acessar os dados de cobertura de testes abra o arquivo `coverage/index.html` no seu navegador__
+
+
 
 ## Parar Execução
 
