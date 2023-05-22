@@ -28,7 +28,7 @@ class ContactUpdateServiceUnitTest extends TestCase
         $contactDto->personId    = 2;
         
         $person = $this->createMock( Person::class );
-        $person->method( '__get' )->willReturn( 2 );
+        $person->method( '__get' )->willReturn( 1 );
         
         $contact = $this->createMock( Contact::class );
         $contact->method( '__get' )->willReturn( $person );
